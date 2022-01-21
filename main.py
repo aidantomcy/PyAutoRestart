@@ -6,6 +6,7 @@ from colorama import Fore
 
 init(autoreset=True)
 
+
 def main():
     file_name = sys.argv[1]
     if os.path.exists(file_name):
@@ -20,7 +21,7 @@ def main():
                 os.system("python %s" % file_name)
             else:
                 pass
-    
+
     else:
         print(f"{Fore.RED}Please enter a valid file name.")
         sys.exit()

@@ -1,10 +1,12 @@
 import os
 
+
 def file_is_updated(file_name):
     """
     Checks if the given file is updated.
     Returns True if updated, else False.
     """
+
     class FileUpdated(object):
         def __init__(self):
             self._cached_stamp = 0
