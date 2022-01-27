@@ -8,6 +8,9 @@ def file_is_updated(file_name):
     """
 
     class FileUpdated(object):
+        """
+        A class to check if a file has been updated.
+        """
         def __init__(self):
             self._cached_stamp = 0
             self.filename = file_name
@@ -20,5 +23,5 @@ def file_is_updated(file_name):
             else:
                 return False
 
-    file_is_updated = FileUpdated()
-    return file_is_updated.check_file_update()
+    file_updated = FileUpdated()
+    return file_updated.check_file_update()
