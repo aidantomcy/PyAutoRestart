@@ -17,6 +17,10 @@ def main():
 
         file_updated = Watcher(file_name, restart_if_updated)
         file_updated.watch()
+    else:
+        print(
+            f"{Fore.RED}Please enter a valid file name you want to run with PyAutoRun."
+        )
 
 
 def restart_if_updated():
