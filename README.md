@@ -1,5 +1,6 @@
 # PyAutoRun
 
 This is a nodemon clone but for Python.  
-It does not work now, and I am trying to figure out how to implement
-this project with watchdog to watch for file changes.
+The main.py file performs actions if a file has been updated.  
+The file_update.py has a class called Watcher with functions to watch
+for file updates.
