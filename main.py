@@ -1,6 +1,6 @@
 import os
 import sys
-import file_update
+from file_update import Watcher
 from colorama import init
 from colorama import Fore
 
@@ -8,23 +8,20 @@ init(autoreset=True)
 
 
 def main():
+    global file_name
     file_name = sys.argv[1]
     if os.path.exists(file_name):
-        print(f"{Fore.YELLOW}PyAutoRun")
+        print(f"{Fore.YELLOW}PyAutoRun v1.0")
         print(f"{Fore.GREEN}Watching for file changes...")
         os.system("python %s" % file_name)
 
-        file_updated = file_update.file_is_updated(file_name)
-        while True:
-            if file_updated:
-                print(f"{Fore.YELLOW}Restarting due to file changes...")
-                os.system("python %s" % file_name)
-            else:
-                pass
+        file_updated = Watcher(file_name, restart_if_updated)
+        file_updated.watch()
 
-    else:
-        print(f"{Fore.RED}Please enter a valid file name.")
-        sys.exit()
+
+def restart_if_updated():
+    print(f"{Fore.YELLOW}Restarting due to file changes...")
+    os.system("python %s" % file_name)
 
 
 if __name__ == "__main__":
