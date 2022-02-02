@@ -20,6 +20,9 @@ class Watcher(object):
         self.kwargs = kwargs
 
     def look(self):
+        """
+        Look for changes in the file.
+        """
         stamp = os.stat(self.filename).st_mtime
         if stamp != self._cached_stamp:
             self._cached_stamp = stamp
@@ -27,6 +30,9 @@ class Watcher(object):
                 self.call_func_on_change(*self.args, **self.kwargs)
 
     def watch(self):
+        """
+        Watch the file for changes.
+        """
         while self.running:
             try:
                 time.sleep(self.refresh_delay_secs)
