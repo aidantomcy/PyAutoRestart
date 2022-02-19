@@ -37,4 +37,4 @@ if __name__ == "__main__":
         print("Example: python main.py test.py")
         sys.exit()
     except KeyboardInterrupt:
-        pass
+        sys.exit()
