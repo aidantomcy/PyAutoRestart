@@ -19,7 +19,7 @@ def main():
         file_updated.watch()
     else:
         print(
-            f"{Fore.RED}Please enter a valid file name you want to run with PyAutoRun."
+            f"{Fore.RED}Please enter a valid file name you want to run with PyAutoRestart."
         )
 
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     try:
         main()
     except IndexError:
-        print("Please enter a file name that you want to run with PyAutoRun.")
+        print("Please enter a file name that you want to run with PyAutoRestart.")
         print("Usage: python main.py <file_name>")
         print("Example: python main.py test.py")
         sys.exit()
