@@ -42,4 +42,4 @@ class Watcher(object):
             except FileNotFoundError:
                 pass
             except:
-                print("Unhandled error: %s" % sys.exc_info()[0])
+                print(f"Unhandled error: {sys.exc_info()[0]}")

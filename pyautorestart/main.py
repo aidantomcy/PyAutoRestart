@@ -13,7 +13,7 @@ def main():
     if os.path.exists(file_name):
         print(f"{Fore.YELLOW}PyAutoRun v1.0")
         print(f"{Fore.GREEN}Watching for file changes...")
-        os.system("python %s" % file_name)
+        os.system(f"python {file_name}")
 
         file_updated = Watcher(file_name, restart_if_updated)
         file_updated.watch()
@@ -25,7 +25,7 @@ def main():
 
 def restart_if_updated():
     print(f"{Fore.YELLOW}Restarting due to file changes...")
-    os.system("python %s" % file_name)
+    os.system(f"python {file_name}")
 
 
 if __name__ == "__main__":
