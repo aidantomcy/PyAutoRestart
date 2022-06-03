@@ -1,4 +1,4 @@
-# PyAutoRestart
+# PyReRun
 
 This is a nodemon clone but for Python.  
 The main.py file performs actions if a file has been updated.  
