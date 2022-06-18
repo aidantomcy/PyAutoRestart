@@ -50,7 +50,6 @@ class Watcher(object):
 
 
 def main():
-    global file_name
     file_name = sys.argv[1]
     if os.path.exists(file_name):
         print(f"{Fore.YELLOW}PyAutoRun v1.0")
@@ -59,6 +58,8 @@ def main():
 
         file_updated = Watcher(file_name, restart_if_updated)
         file_updated.watch()
+
+        return file_name
     else:
         print(
             f"{Fore.RED}Please enter a valid file name you want to run with PyAutoRestart."
@@ -66,8 +67,12 @@ def main():
 
 
 def restart_if_updated():
-    print(f"{Fore.YELLOW}Restarting due to file changes...")
-    os.system(f"python {file_name}")
+    file_name = main()
+    if file_name is None:
+        sys.exit()
+    elif type(file_name) == str:
+        print(f"{Fore.YELLOW}Restarting due to file changes...")
+        os.system(f"python {file_name}")
 
 
 if __name__ == "__main__":
