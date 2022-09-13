@@ -1,31 +1,23 @@
 # PyMon
 
-This is a nodemon clone but for Python.  
-The main.py file performs actions if a file has been updated.  
-The file_update.py has a class called Watcher with functions to watch
-for file updates.  
-I will soon publish this to PyPI.
 
-## How to use:
+PyMon is a CLI tool that helps develop Python applications by re-running the application whenever file changes are detected in the directory.
+It is written in the Rust programming language and will be installable on Windows and Linux when production ready.
 
-To use this with a file, you need to run:
+## Installation
+
+- Build the code with Cargo, optimized for production:
 
 ```
-python main.py file_to_watch.py
+cargo build --release
 ```
 
-If you don't provide a file, it will print this message:
+This will create a binary named `pymon` in the target/release directory. Add this binary to a location on your system which is on your PATH environment variable.
 
-```
-Please enter a file name that you want to run with PyAutoRestart.
-Usage: python main.py <file_name>
-Example: python main.py test.py
-```
+## Usage
 
-Otherwise, if you pass a file that doesn't exist, it will give you this error:
+You can run and watch any Python file by simply running `pymon <your_app.py>`. If you do not specify a file name, it will print a help message.
 
-```
-Please enter a valid file name you want to run with PyAutoRestart.
-```
+## Credits
 
-If there is any other project that resembles this or is similar to this, it is a pure coincidence.
+This project has been heavily inspired by [nodemon](https://github.com/remy/nodemon).
