@@ -1,7 +1,8 @@
 use std::path::Path;
 
 pub fn help() {
-    println!("help");
+    println!("Usage: pymon <file_name>");
+    println!("Example: pymon example.py")
 }
 
 pub fn run(file_name: &str) {
