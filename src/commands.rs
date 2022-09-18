@@ -48,6 +48,7 @@ fn watch() -> Result<()> {
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(_) => {
                 print_colored_text("warning", "Restarting due to file changes...").err();
+                reset_stdout_color();
                 let mut args: Args = args();
                 let file_name: &str = &args.nth(1).unwrap() as &str;
                 run(file_name);
