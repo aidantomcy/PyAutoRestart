@@ -1,9 +1,10 @@
 use notify::{INotifyWatcher, RecursiveMode, Result, Watcher};
-use std::env::consts::OS;
-use std::env::{args, Args};
-use std::io::{self, Write};
-use std::path::Path;
-use std::process::{Command, ExitStatus};
+use std::{
+    env::{args, consts::OS, Args},
+    io::{self, Write},
+    path::Path,
+    process::{Command, ExitStatus},
+};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 pub fn help() {
