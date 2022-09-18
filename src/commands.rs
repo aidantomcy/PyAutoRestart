@@ -45,6 +45,7 @@ fn watch() -> Result<()> {
     let mut watcher: INotifyWatcher =
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(_) => {
+                println!("Restarting due to file changes...");
                 let mut args: Args = args();
                 let file_name: &str = &args.nth(1).unwrap() as &str;
                 run(file_name);
