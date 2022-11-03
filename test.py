@@ -1,2 +1,1 @@
-# File to test project
-print("Hello World!")
+print("Hello, World!")
