@@ -2,6 +2,14 @@
 name = "pymon"
 version = "0.1.0"
 edition = "2021"
+authors = ["Aidan Tomcy <aidantomcy@gmail.com>"]
+license = "MIT"
+description = "A tool to re-run your Python application when files are changed"
+readme = "README.md"
+homepage = "https://github.com/aidantomcy/pymon"
+repository = "https://github.com/aidantomcy/pymon"
+keywords = ["cli", "python", "development", "nodemon"]
+categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
