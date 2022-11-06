@@ -28,3 +28,4 @@ repository = "https://github.com/aidantomcy/pymon"
 bindings = "bin"
 sdist-include = ["Cargo.lock"]
 strip = true
+compatibility = "linux"
