@@ -19,7 +19,7 @@ pub fn run(file_name: &str) {
         reset_stdout_color();
 
         match OS {
-            "linux" => {
+            "linux" | "macos" => {
                 let stdout: ExitStatus = Command::new("python3")
                     .arg(file_name)
                     .status()
