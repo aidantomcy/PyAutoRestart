@@ -1,14 +1,14 @@
+use crossterm::{
+    style::{Color, Print, ResetColor, SetForegroundColor},
+    ExecutableCommand,
+};
+use notify::{INotifyWatcher, RecursiveMode, Watcher};
 use std::{
     env::{args, consts::OS, Args},
     io::stdout,
     path::Path,
     process::{Command, ExitStatus},
 };
-use crossterm::{
-    style::{Color, Print, ResetColor, SetForegroundColor},
-    ExecutableCommand,
-};
-use notify::{INotifyWatcher, RecursiveMode, Watcher};
 
 pub fn help() {
     println!("Usage: pymon <file_name>");
