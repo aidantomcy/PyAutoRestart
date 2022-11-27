@@ -49,7 +49,6 @@ jobs:
         run: pip install maturin
       - name: build
         run: maturin build -b bin
-
   maturin_build_macos:
     name: build with maturin
     runs-on: macos-latest
@@ -80,3 +79,26 @@ jobs:
         run: pip install maturin
       - name: build
         run: maturin build -b bin
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    needs: [ build, lint, fmt, maturin_build_linux ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: install maturin
+        run: pip install maturin
+      - name: build
+        run: maturin build -b bin
+      - name: release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: Development Build
+          files: target/wheels/pymon-0.1.0-py3-none-linux_x86_64.whl
