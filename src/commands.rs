@@ -1,11 +1,14 @@
+use crossterm::{
+    style::{Color, Print, ResetColor, SetForegroundColor},
+    ExecutableCommand,
+};
 use notify::{INotifyWatcher, RecursiveMode, Result, Watcher};
 use std::{
     env::{args, consts::OS, Args},
-    io::{self, Write},
+    io::stdout,
     path::Path,
     process::{Command, ExitStatus},
 };
-use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 pub fn help() {
     println!("Usage: pymon <file_name>");
@@ -14,9 +17,8 @@ pub fn help() {
 
 pub fn run(file_name: &str) {
     if Path::new(file_name).exists() {
-        print_colored_text("success", "PyMon v2.0").err();
-        print_colored_text("warning", "Watching for file changes...").err();
-        reset_stdout_color();
+        print_colored_text("success", "PyMon v2.0\n").err();
+        print_colored_text("warning", "Watching for file changes...\n").err();
 
         match OS {
             "linux" | "macos" => {
@@ -48,8 +50,7 @@ fn watch() -> Result<()> {
     let mut watcher: INotifyWatcher =
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(_) => {
-                print_colored_text("warning", "Restarting due to file changes...").err();
-                reset_stdout_color();
+                print_colored_text("warning", "Restarting due to file changes...\n").err();
                 let mut args: Args = args();
                 let file_name: &str = &args.nth(1).unwrap() as &str;
                 run(file_name);
@@ -62,29 +63,29 @@ fn watch() -> Result<()> {
     Ok(())
 }
 
-fn print_colored_text(output_type: &str, msg: &str) -> io::Result<()> {
-    let mut stdout: StandardStream = StandardStream::stdout(ColorChoice::Always);
-
+fn print_colored_text(output_type: &str, msg: &str) -> crossterm::Result<()> {
     match output_type {
         "success" => {
-            stdout.set_color(ColorSpec::new().set_fg(Some(Color::Green)))?;
-            writeln!(&mut stdout, "{}", msg)
+            stdout()
+                .execute(SetForegroundColor(Color::Green))?
+                .execute(Print(msg))?
+                .execute(ResetColor)?;
+            Ok(())
         }
         "warning" => {
-            stdout.set_color(ColorSpec::new().set_fg(Some(Color::Yellow)))?;
-            writeln!(&mut stdout, "{}", msg)
+            stdout()
+                .execute(SetForegroundColor(Color::Yellow))?
+                .execute(Print(msg))?
+                .execute(ResetColor)?;
+            Ok(())
         }
         "error" => {
-            stdout.set_color(ColorSpec::new().set_fg(Some(Color::Red)))?;
-            writeln!(&mut stdout, "{}", msg)
+            stdout()
+                .execute(SetForegroundColor(Color::Red))?
+                .execute(Print(msg))?
+                .execute(ResetColor)?;
+            Ok(())
         }
         _ => panic!("Error: Invalid output type provided"),
     }
-}
-
-fn reset_stdout_color() {
-    let mut stdout: StandardStream = StandardStream::stdout(ColorChoice::Always);
-    stdout
-        .set_color(ColorSpec::new().set_fg(Some(Color::White)))
-        .err();
 }
