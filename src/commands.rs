@@ -8,7 +8,7 @@ use crossterm::{
     style::{Color, Print, ResetColor, SetForegroundColor},
     ExecutableCommand,
 };
-use notify::{INotifyWatcher, RecursiveMode, Result, Watcher};
+use notify::{INotifyWatcher, RecursiveMode, Watcher};
 
 pub fn help() {
     println!("Usage: pymon <file_name>");
@@ -46,7 +46,7 @@ pub fn run(file_name: &str) {
     }
 }
 
-fn watch() -> Result<()> {
+fn watch() -> notify::Result<()> {
     let mut watcher: INotifyWatcher =
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(_) => {
