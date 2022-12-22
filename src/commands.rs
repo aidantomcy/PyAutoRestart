@@ -6,5 +6,5 @@ pub fn help() {
 }
 
 pub fn init(file_name: &str) {
-    run(file_name)
+    run(file_name);
 }
