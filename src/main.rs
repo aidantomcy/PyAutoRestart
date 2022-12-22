@@ -1,5 +1,7 @@
-mod commands;
 use std::env::{args, Args};
+
+mod commands;
+mod utils;
 
 fn main() {
     let mut args: Args = args();
@@ -9,7 +11,7 @@ fn main() {
     match arg {
         Some(val) => {
             file_name = val as &str;
-            commands::run(file_name);
+            commands::init(file_name);
         }
         None => commands::help(),
     }
