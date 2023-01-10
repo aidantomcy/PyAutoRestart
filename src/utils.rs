@@ -19,7 +19,7 @@ pub fn watch() -> notify::Result<()> {
                 let file_name: &str = &args.nth(1).unwrap() as &str;
                 run(file_name);
             }
-            Err(err) => println!("watch error: {:?}", err),
+            Err(err) => println!("watch error: {err:?}"),
         })?;
 
     watcher.watch(Path::new("."), RecursiveMode::Recursive)?;
@@ -39,7 +39,7 @@ pub fn run(file_name: &str) {
                     .status()
                     .expect("[pymon] Error: Failed to run file");
                 let output: &str = &stdout.to_string() as &str;
-                println!("{}", output);
+                println!("{output}");
 
                 loop {
                     watch().err();
@@ -51,10 +51,7 @@ pub fn run(file_name: &str) {
             _ => panic!("[pymon] Error: Operating System not supported"),
         }
     } else {
-        panic!(
-            "[pymon] Error: No files matching the pattern '{}' were found.",
-            file_name
-        )
+        panic!("[pymon] Error: No files matching the pattern '{file_name}' were found.")
     }
 }
 
