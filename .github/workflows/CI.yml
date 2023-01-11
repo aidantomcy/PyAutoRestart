@@ -44,7 +44,7 @@ jobs:
         run: cargo fmt --all --check
 
   build_linux:
-    name: build with maturin
+    name: build with maturin - linux
     runs-on: ubuntu-latest
     needs: [build, lint, fmt]
     steps:
@@ -59,7 +59,7 @@ jobs:
       - name: build
         run: maturin build -b bin
   build_macos:
-    name: build with maturin
+    name: build with maturin - macos
     runs-on: macos-latest
     needs: [build, lint, fmt]
     steps:
@@ -74,7 +74,7 @@ jobs:
       - name: build
         run: maturin build -b bin
   build_windows:
-    name: build with maturin
+    name: build with maturin - windows
     runs-on: windows-latest
     needs: [build, lint, fmt]
     steps:
