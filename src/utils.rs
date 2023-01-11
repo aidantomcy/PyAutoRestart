@@ -2,7 +2,7 @@ use crossterm::{
     style::{Color, Print, ResetColor, SetForegroundColor},
     ExecutableCommand,
 };
-use notify::{INotifyWatcher, RecursiveMode, Watcher};
+use notify::{RecursiveMode, Watcher};
 use std::{
     env::{args, consts::OS, Args},
     io::stdout,
@@ -11,7 +11,7 @@ use std::{
 };
 
 pub fn watch() -> notify::Result<()> {
-    let mut watcher: INotifyWatcher =
+    let mut watcher =
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(_) => {
                 print_colored_text("warning", "Restarting due to file changes...\n").err();
