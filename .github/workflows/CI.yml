@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: build with cargo
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: cargo build --verbose
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Install clippy
+        run: rustup component add clippy
+      - name: Lint
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings -W clippy::pedantic
+  fmt:
+    name: cargo fmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: cargo fmt
+        run: cargo fmt --all --check
+  maturin_build_linux:
+    name: build with maturin
+    runs-on: ubuntu-latest
+    needs: [ build, lint, fmt ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: install maturin
+        run: pip install maturin
+      - name: build
+        run: maturin build -b bin
+  maturin_build_macos:
+    name: build with maturin
+    runs-on: macos-latest
+    needs: [ build, lint, fmt ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: install maturin
+        run: pip install maturin
+      - name: build
+        run: maturin build -b bin
+  maturin_build_windows:
+    name: build with maturin
+    runs-on: windows-latest
+    needs: [ build, lint, fmt ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: install maturin
+        run: pip install maturin
+      - name: build
+        run: maturin build -b bin
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    needs: [ build, lint, fmt, maturin_build_linux ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: install maturin
+        run: pip install maturin
+      - name: build
+        run: maturin build -b bin
+      - name: release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: Development Build
+          files: target/wheels/pymon-0.1.0-py3-none-linux_x86_64.whl

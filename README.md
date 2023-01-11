@@ -6,7 +6,7 @@ It is written in the Rust programming language and will be installable on Window
 
 ## Installation
 
-- Build the code with Cargo, optimized for production:
+Build the code with Cargo, optimized for production:
 
 ```
 cargo build --release
@@ -20,4 +20,4 @@ You can run and watch any Python file by simply running `pymon <your_app.py>`. I
 
 ## Credits
 
-This project has been heavily inspired by [nodemon](https://github.com/remy/nodemon).
+This project has been heavily inspired by [nodemon](https://github.com/remy/nodemon)

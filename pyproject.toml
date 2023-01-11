@@ -1,0 +1,31 @@
+[build-system]
+requires = ["maturin>=0.13,<0.14"]
+build-backend = "maturin"
+
+[project]
+name = "pymon"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux"
+]
+author = "Aidan Tomcy"
+autor_email = "aidantomcy@gmail.com"
+description = "Monitor for any changes in your Python application and automatically restart the server - Inspired by nodemon"
+keywords = ["python", "maturin", "rust", "development", "watch", "nodemon"]
+
+[project.urls]
+repository = "https://github.com/aidantomcy/pymon"
+
+[tool.maturin]
+bindings = "bin"
+sdist-include = ["Cargo.lock"]
+strip = true
+compatibility = "linux"
