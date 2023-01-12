@@ -46,7 +46,16 @@ pub fn run(file_name: &str) {
                 }
             }
             "windows" => {
-                todo!("Add functionality for Windows")
+                let stdout: ExitStatus = Command::new("python")
+                    .arg(file_name)
+                    .status()
+                    .expect("[pymon] Error: Failed to run file");
+                let output: &str = &stdout.to_string() as &str;
+                println!("{output}");
+
+                loop {
+                    watch().err();
+                }
             }
             _ => panic!("[pymon] Error: Operating System not supported"),
         }
