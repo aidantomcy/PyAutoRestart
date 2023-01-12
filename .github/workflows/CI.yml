@@ -111,7 +111,7 @@ jobs:
       - name: install built wheel - x86_64
         run: pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -138,7 +138,7 @@ jobs:
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*universal2.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -170,7 +170,7 @@ jobs:
         run: |
           python -m pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -197,7 +197,7 @@ jobs:
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -232,7 +232,7 @@ jobs:
           run: |
             pip3 install ${{ env.PACKAGE_NAME }} --no-index --find-links dist/ --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -266,7 +266,7 @@ jobs:
             apk add py3-pip
             pip3 install ${{ env.PACKAGE_NAME }} --no-index --find-links /io/dist/ --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -302,7 +302,7 @@ jobs:
           run: |
             pip3 install ${{ env.PACKAGE_NAME }} --no-index --find-links dist/ --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
@@ -336,7 +336,7 @@ jobs:
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: dist
