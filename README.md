@@ -1,18 +1,15 @@
-# PyMon
+# pymon
 
 
 PyMon is a CLI tool that helps develop Python applications by re-running the application whenever file changes are detected in the directory.
-It is written in the Rust programming language and will be installable on Windows and Linux when production ready.
+It is written in the Rust programming language and will be installable on Windows, macOS and Linux when production ready.
 
 ## Installation
-
-Build the code with Cargo, optimized for production:
-
+Download the wheel file for your operating system from the [releases page](https://github.com/aidantomcy/pymon/releases)  
+Open your terminal to the folder where you've downloaded the wheel file, and then run:
 ```
-cargo build --release
+pip install pymon-*.whl
 ```
-
-This will create a binary named `pymon` in the target/release directory. Add this binary to a location on your system which is on your PATH environment variable.
 
 ## Usage
 
