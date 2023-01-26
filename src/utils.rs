@@ -15,20 +15,15 @@ fn watch() -> notify::Result<()> {
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(event) => {
                 for file in &event.paths {
-                    match file.extension() {
-                        Some(extension) => {
-                            if extension == "py" {
-                                print_colored_text(
-                                    "warning",
-                                    "Restarting due to file changes...\n",
-                                )
+                    if let Some(extension) = file.extension() {
+                        if extension == "py" {
+                            print_colored_text("warning", "Restarting due to file changes...\n")
                                 .err();
-                                let mut args: Args = args();
-                                let file_name: &str = &args.nth(1).unwrap() as &str;
-                                run(file_name);
-                            }
+                            let mut args: Args = args();
+                            let file_name: &str = &args.nth(1).unwrap() as &str;
+                            run(file_name);
+                        } else if file.extension().is_none() {
                         }
-                        None => {}
                     }
                 }
             }
