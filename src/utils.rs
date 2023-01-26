@@ -27,14 +27,12 @@ pub fn watch() -> notify::Result<()> {
     Ok(())
 }
 
-pub fn run(file_name: &str) {
+pub(crate) fn run(file_name: &str) {
     if Path::new(file_name).exists() {
-        print_colored_text("success", "PyMon v2.0\n").err();
-        print_colored_text("warning", "Watching for file changes...\n").err();
 
         match OS {
             "linux" | "macos" => {
-                let stdout: ExitStatus = Command::new("python3")
+                let stdout= Command::new("python3")
                     .arg(file_name)
                     .status()
                     .expect("[pymon] Error: Failed to run file");
@@ -46,7 +44,7 @@ pub fn run(file_name: &str) {
                 }
             }
             "windows" => {
-                let stdout: ExitStatus = Command::new("python")
+                let stdout = Command::new("python")
                     .arg(file_name)
                     .status()
                     .expect("[pymon] Error: Failed to run file");
