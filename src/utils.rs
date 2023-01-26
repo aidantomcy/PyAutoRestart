@@ -7,17 +7,21 @@ use std::{
     env::{args, consts::OS, Args},
     io::stdout,
     path::Path,
-    process::{Command, ExitStatus},
+    process::Command,
 };
 
-pub fn watch() -> notify::Result<()> {
+fn watch() -> notify::Result<()> {
     let mut watcher =
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
-            Ok(_) => {
-                print_colored_text("warning", "Restarting due to file changes...\n").err();
-                let mut args: Args = args();
-                let file_name: &str = &args.nth(1).unwrap() as &str;
-                run(file_name);
+            Ok(event) => {
+                for file in &event.paths {
+                    if file.extension().unwrap() == "py" {
+                        print_colored_text("warning", "Restarting due to file changes...\n").err();
+                        let mut args: Args = args();
+                        let file_name: &str = &args.nth(1).unwrap() as &str;
+                        run(file_name);
+                    }
+                }
             }
             Err(err) => println!("watch error: {err:?}"),
         })?;
