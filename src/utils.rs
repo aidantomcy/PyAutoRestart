@@ -15,11 +15,20 @@ fn watch() -> notify::Result<()> {
         notify::recommended_watcher(|res: notify::Result<notify::Event>| match res {
             Ok(event) => {
                 for file in &event.paths {
-                    if file.extension().unwrap() == "py" {
-                        print_colored_text("warning", "Restarting due to file changes...\n").err();
-                        let mut args: Args = args();
-                        let file_name: &str = &args.nth(1).unwrap() as &str;
-                        run(file_name);
+                    match file.extension() {
+                        Some(extension) => {
+                            if extension == "py" {
+                                print_colored_text(
+                                    "warning",
+                                    "Restarting due to file changes...\n",
+                                )
+                                .err();
+                                let mut args: Args = args();
+                                let file_name: &str = &args.nth(1).unwrap() as &str;
+                                run(file_name);
+                            }
+                        }
+                        None => {}
                     }
                 }
             }
@@ -33,10 +42,9 @@ fn watch() -> notify::Result<()> {
 
 pub(crate) fn run(file_name: &str) {
     if Path::new(file_name).exists() {
-
         match OS {
             "linux" | "macos" => {
-                let stdout= Command::new("python3")
+                let stdout = Command::new("python3")
                     .arg(file_name)
                     .status()
                     .expect("[pymon] Error: Failed to run file");
