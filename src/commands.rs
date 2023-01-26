@@ -1,5 +1,4 @@
-use crate::utils::run;
-use crate::utils::print_colored_text;
+use crate::utils::{print_colored_text, run};
 
 pub fn help() {
     println!("Usage: pymon <file_name>");
