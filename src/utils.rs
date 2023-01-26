@@ -64,7 +64,7 @@ pub fn run(file_name: &str) {
     }
 }
 
-fn print_colored_text(output_type: &str, msg: &str) -> crossterm::Result<()> {
+pub(crate) fn print_colored_text(output_type: &str, msg: &str) -> crossterm::Result<()> {
     match output_type {
         "success" => {
             stdout()
