@@ -32,33 +32,23 @@ fn watch() -> notify::Result<()> {
 }
 
 pub(crate) fn run(file_name: &str) {
+    let interpreter: &str;
+    match OS {
+        "linux" | "macos" => interpreter = "python3",
+        "windows" => interpreter = "python",
+        _ => panic!("[pymon] Error: Operating System not supported"),
+    }
+
     if Path::new(file_name).exists() {
-        match OS {
-            "linux" | "macos" => {
-                let stdout = Command::new("python3")
-                    .arg(file_name)
-                    .status()
-                    .expect("[pymon] Error: Failed to run file");
-                let output: &str = &stdout.to_string() as &str;
-                println!("{output}");
+        let stdout = Command::new(interpreter)
+            .arg(file_name)
+            .status()
+            .expect("[pymon] Error: Failed to run file");
+        let output: &str = &stdout.to_string() as &str;
+        println!("{output}");
 
-                loop {
-                    watch().err();
-                }
-            }
-            "windows" => {
-                let stdout = Command::new("python")
-                    .arg(file_name)
-                    .status()
-                    .expect("[pymon] Error: Failed to run file");
-                let output: &str = &stdout.to_string() as &str;
-                println!("{output}");
-
-                loop {
-                    watch().err();
-                }
-            }
-            _ => panic!("[pymon] Error: Operating System not supported"),
+        loop {
+            watch().err();
         }
     } else {
         panic!("[pymon] Error: No files matching the pattern '{file_name}' were found.")
@@ -68,13 +58,11 @@ pub(crate) fn run(file_name: &str) {
 pub(crate) enum ResultType {
     Success,
     Warning,
-    Error
 }
 
 pub(crate) fn print_colored_text(result_type: ResultType, msg: &str) {
     match result_type {
         ResultType::Success => println!("{}", msg.green()),
         ResultType::Warning => println!("{}", msg.yellow()),
-        ResultType::Error => println!("{}", msg.red()),
     }
 }
