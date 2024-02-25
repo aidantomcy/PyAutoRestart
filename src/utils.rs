@@ -1,11 +1,8 @@
-use crossterm::{
-    style::{Color, Print, ResetColor, SetForegroundColor},
-    ExecutableCommand,
-};
+extern crate colored;
+use colored::*;
 use notify::{RecursiveMode, Watcher};
 use std::{
     env::{args, consts::OS, Args},
-    io::stdout,
     path::Path,
     process::Command,
 };
@@ -17,8 +14,7 @@ fn watch() -> notify::Result<()> {
                 for file in &event.paths {
                     if let Some(extension) = file.extension() {
                         if extension == "py" {
-                            print_colored_text("warning", "Restarting due to file changes...\n")
-                                .err();
+                            print_colored_text(ResultType::Warning, "Restarting due to file changes...\n");
                             let mut args: Args = args();
                             let file_name: &str = &args.nth(1).unwrap() as &str;
                             run(file_name);
@@ -69,29 +65,16 @@ pub(crate) fn run(file_name: &str) {
     }
 }
 
-pub(crate) fn print_colored_text(output_type: &str, msg: &str) -> crossterm::Result<()> {
-    match output_type {
-        "success" => {
-            stdout()
-                .execute(SetForegroundColor(Color::Green))?
-                .execute(Print(msg))?
-                .execute(ResetColor)?;
-            Ok(())
-        }
-        "warning" => {
-            stdout()
-                .execute(SetForegroundColor(Color::Yellow))?
-                .execute(Print(msg))?
-                .execute(ResetColor)?;
-            Ok(())
-        }
-        "error" => {
-            stdout()
-                .execute(SetForegroundColor(Color::Red))?
-                .execute(Print(msg))?
-                .execute(ResetColor)?;
-            Ok(())
-        }
-        _ => panic!("Error: Invalid output type provided"),
+pub(crate) enum ResultType {
+    Success,
+    Warning,
+    Error
+}
+
+pub(crate) fn print_colored_text(result_type: ResultType, msg: &str) {
+    match result_type {
+        ResultType::Success => println!("{}", msg.green()),
+        ResultType::Warning => println!("{}", msg.yellow()),
+        ResultType::Error => println!("{}", msg.red()),
     }
 }

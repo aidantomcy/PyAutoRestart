@@ -15,4 +15,4 @@ categories = ["command-line-utilities"]
 
 [dependencies]
 notify = "5.1.0"
-crossterm = "0.26"
+colored = "2.1.0"
