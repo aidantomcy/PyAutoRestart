@@ -14,11 +14,15 @@ fn watch() -> notify::Result<()> {
                 for file in &event.paths {
                     if let Some(extension) = file.extension() {
                         if extension == "py" {
-                            print_colored_text(&ResultType::Warning, "Restarting due to file changes...\n");
+                            print_colored_text(
+                                &ResultType::Warning,
+                                "Restarting due to file changes...\n",
+                            );
                             let mut args: Args = args();
                             let file_name: &str = &args.nth(1).unwrap() as &str;
                             run(file_name);
-                        } else if file.extension().is_none() {}
+                        } else if file.extension().is_none() {
+                        }
                     }
                 }
             }
