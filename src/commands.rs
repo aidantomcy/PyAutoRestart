@@ -6,7 +6,7 @@ pub fn help() {
 }
 
 pub fn init(file_name: &str) {
-    print_colored_text(ResultType::Success, "pymon v2.0");
-    print_colored_text(ResultType::Warning, "Watching for file changes...\n");
+    print_colored_text(&ResultType::Success, "pymon v2.0");
+    print_colored_text(&ResultType::Warning, "Watching for file changes...\n");
     run(file_name);
 }

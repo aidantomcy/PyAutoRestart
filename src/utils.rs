@@ -1,5 +1,5 @@
 extern crate colored;
-use colored::*;
+use colored::Colorize;
 use notify::{RecursiveMode, Watcher};
 use std::{
     env::{args, consts::OS, Args},
@@ -14,12 +14,11 @@ fn watch() -> notify::Result<()> {
                 for file in &event.paths {
                     if let Some(extension) = file.extension() {
                         if extension == "py" {
-                            print_colored_text(ResultType::Warning, "Restarting due to file changes...\n");
+                            print_colored_text(&ResultType::Warning, "Restarting due to file changes...\n");
                             let mut args: Args = args();
                             let file_name: &str = &args.nth(1).unwrap() as &str;
                             run(file_name);
-                        } else if file.extension().is_none() {
-                        }
+                        } else if file.extension().is_none() {}
                     }
                 }
             }
@@ -32,12 +31,11 @@ fn watch() -> notify::Result<()> {
 }
 
 pub(crate) fn run(file_name: &str) {
-    let interpreter: &str;
-    match OS {
-        "linux" | "macos" => interpreter = "python3",
-        "windows" => interpreter = "python",
+    let interpreter: &str = match OS {
+        "linux" | "macos" => "python3",
+        "windows" => "python",
         _ => panic!("[pymon] Error: Operating System not supported"),
-    }
+    };
 
     if Path::new(file_name).exists() {
         let stdout = Command::new(interpreter)
@@ -60,7 +58,7 @@ pub(crate) enum ResultType {
     Warning,
 }
 
-pub(crate) fn print_colored_text(result_type: ResultType, msg: &str) {
+pub(crate) fn print_colored_text(result_type: &ResultType, msg: &str) {
     match result_type {
         ResultType::Success => println!("{}", msg.green()),
         ResultType::Warning => println!("{}", msg.yellow()),
