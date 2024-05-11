@@ -1,6 +1,6 @@
 # pymon
 
-PyMon is a CLI tool that helps develop Python applications by re-running the application whenever file changes are detected in the directory.
+pymon is a CLI tool that helps develop Python applications by re-running the application whenever file changes are detected in the directory.
 It is written in the Rust programming language and will be installable on Windows, macOS and Linux when production ready.
 
 ![pymon](pymon.gif)
