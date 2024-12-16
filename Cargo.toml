@@ -15,4 +15,4 @@ categories = ["command-line-utilities"]
 
 [dependencies]
 notify = "6.1.1"
-colored = "2.1.0"
+colored = "2.2.0"
